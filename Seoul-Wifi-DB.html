@@ -1,0 +1,68 @@
+<!DOCTYPE html> <!-- incomplete !!! -->
+<html> <body>
+<h3>JSON Object Search Test</h3>
+<script>
+  var wifi = {
+"DESCRIPTION" : {"PLACE_NAME":"지역명","CATEGORY":"유형","INSTL_X":"설치위치(X좌표)","INSTL_Y":"설치위치(Y좌표)","PLACE_ADDR":"설치주소","GU_NM":"구명","PLACE_ADDR_SUB":"상세설치장소","OBJECTID":"콘텐츠아이디","INSTL_DIV":"설치기관(회사)"},
+"DATA" : [
+{"category":"복지시설","gu_nm":"강남구","instl_y":"37.479804","place_name":"아동복지센터","instl_div":"서울시","place_addr":"강남구 광평로34길 124","objectid":"WF120001","instl_x":"127.088505","place_addr_sub":"아동복지센터"},
+{"category":"공공기관","gu_nm":"강남구","instl_y":"37.5082915","place_name":"u-강남 도시관제센터","instl_div":"강남구","place_addr":"서울 강남구 언주로108길 20","objectid":"WF121001","instl_x":"127.0410033","place_addr_sub":"2층"},
+{"category":"공공기관","gu_nm":"강남구","instl_y":"37.4938501","place_name":"강남구의회","instl_div":"강남구","place_addr":"서울 강남구 삼성로 154","objectid":"WF121002","instl_x":"127.0642501","place_addr_sub":"6층"},
+{"category":"공공기관","gu_nm":"강남구","instl_y":"37.5175201","place_name":"강남구청","instl_div":"강남구","place_addr":"서울 강남구 학동로 426","objectid":"WF121010","instl_x":"127.0474601","place_addr_sub":"본관 4층"},
+{"category":"문화시설","gu_nm":"강남구","instl_y":"37.5159009","place_name":"강남문화재단_1","instl_div":"강남구","place_addr":"서울 강남구 삼성로 628","objectid":"WF121025","instl_x":"127.0521134","place_addr_sub":"4층"},
+{"category":"문화시설","gu_nm":"강남구","instl_y":"37.5023891","place_name":"대치2문화센터","instl_div":"강남구","place_addr":"서울 강남구 영동대로65길 24","objectid":"WF121029","instl_x":"127.0643002","place_addr_sub":"2층"},
+{"category":"공원","gu_nm":"중랑구","instl_y":"37.6151938","place_name":"장미테마공원","instl_div":"서울시","place_addr":"중랑구 묵2동 375","objectid":"WF171286","instl_x":"127.0730874","place_addr_sub":"광장옆 가로등"},
+{"category":"공원","gu_nm":"중랑구","instl_y":"37.6148921","place_name":"장미테마공원","instl_div":"서울시","place_addr":"중랑구 묵2동 375","objectid":"WF171287","instl_x":"127.0729229","place_addr_sub":"꽃밭옆 가로등"}
+]
+};
+  document.write("wifi objects: ");
+  for(var k in wifi) document.write(k+", ");
+  document.write("Object.keys(wifi).length="+Object.keys(wifi).length+"<br>");
+  document.write("Object.keys(wifi.DESCRIPTION).length="+Object.keys(wifi.DESCRIPTION).length+", ");
+  document.write("Object.keys(wifi.DATA).length="+Object.keys(wifi.DATA).length, " 구분:<br>");
+  document.write("Data:<br><table border=1><tr><td>no.</td>");
+  for(k in wifi.DATA[0]) document.write("<td>"+k+"</td>");
+  document.write("</tr></table><br>");
+</script>
+<form>
+  검색 단어:<input type=text name="key" value="공공" />
+  필드:<input type=text name="field" value="category" />
+  <input type=submit onclick="search()" value="찾기">
+</form>
+
+<script>
+function search() {
+//  var key=/우체국/;
+  var k=document.getElementsByName("key")[0].value;
+  var key = new RegExp(k);
+  var ff=document.getElementsByName("field")[0].value;
+
+  document.write("Data:<br><table border=1><tr><th>no.</th>");
+  for(k in wifi.DATA[0])
+    document.write("<th>"+k+"</th>");
+  document.write("</tr>");
+  var cnt=0;
+
+
+  for(i in wifi.DATA) {
+   //if(/문화/.test(wifi.DATA[i].category)) {
+	if(key.test(wifi.DATA[i][ff])) {
+      document.write("<tr><td>"+i+"</td>");
+      for(k in wifi.DATA[i]) document.write("<td>"+wifi.DATA[i][k]+"</td>");
+      document.write("</tr>");
+      cnt++;
+    }
+  }
+
+  document.write("<tr><th>found</th><th>"+cnt+"</th><th colspan=8>End of Search</th></tr>");
+  document.write("</table>");
+
+
+
+	
+}
+</script>
+</body> </html>
+<!--
+data from 서울열린데이터광장(2018.5.16) : http://data.seoul.go.kr/dataList/datasetView.do?infId=OA-1218&srvType=S&serviceKind=1
+-->

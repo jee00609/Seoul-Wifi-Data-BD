@@ -1,0 +1,9 @@
+Data들은 객체 배열로 되어있었는데 처음 보는 구조라 어려웠음
+  var k=document.getElementsByName("key")[0].value;
+  var key = new RegExp(k);
+  var ff=document.getElementsByName("field")[0].value;
+라고 써져있는 3줄의 간단한 코드를 작성하기 위해 내 하루 인생을 버렸다.
+
+k라는 변수에 Name속성으로 "key"에대한 여러개의 문서객체를 선택해 저장한다.
+key는 k를 정규표현식 객체를 생성자 함수로 만들었다.
+이때 k는 패턴이 계속 변경되는 특징 때문에 리터럴 방식이 아닌 동적할당,즉 생성자 함수로 만들었다.
